@@ -1,10 +1,13 @@
 import React from 'react';
+import Filter from './Filter';
+import Table from './Table';
 
 function Home() {
   return (
     <div className="Home">
       <div>
-        Home is created !
+        <Filter />
+        <Table />
       </div>
     </div>
   );
