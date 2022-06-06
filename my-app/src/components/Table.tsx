@@ -1,35 +1,24 @@
 import React from 'react';
+import Books from '../mocks/books.json'
 
 function Table() {
   return (
     <table className="table table-striped">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
+          <th scope="col">Author</th>
+          <th scope="col">Country</th>
+          <th scope="col">Year</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
+        {Books.map( (book,index) =>
+          <tr key={index}>
+              <td>{book.author}</td>
+              <td>{book.country}</td>
+              <td>{book.year}</td>
+          </tr>
+        )}
       </tbody>
     </table>
   );
