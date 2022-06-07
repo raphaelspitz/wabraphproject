@@ -1,9 +1,11 @@
 import React from 'react';
-import Books from '../mocks/books.json'
-
-function Table() {
+type ChildProps  = {
+  Books?: any,
+};
+const Table: React.FC<ChildProps> = (props) => {
   return (
     <table className="table table-striped">
+
       <thead>
         <tr>
           <th scope="col">Author</th>
@@ -12,7 +14,7 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {Books.map( (book,index) =>
+        {props.Books.map((book:any,index:any) =>
           <tr key={index}>
               <td>{book.author}</td>
               <td>{book.country}</td>
