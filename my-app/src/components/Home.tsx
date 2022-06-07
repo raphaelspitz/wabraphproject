@@ -8,10 +8,11 @@ function Home() {
   const [booksTemp] = useState(Books);
 
   const setInputValue = (name: string):void => {
-    let filter = books.filter(value => {
-     return value.author.includes(name)
-    })
-    filter = name ? filter : booksTemp;
+    let filter = booksTemp.filter(value => {
+     return value.author.includes(name);
+    });
+    
+    filter = filter ? filter : booksTemp;
     setBooks(filter);
   }
 
