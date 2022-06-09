@@ -9,6 +9,7 @@ function Home() {
   const [inputText, setInputText] = useState<string>('');
   const [checkboxes, setCheckboxes] = useState<string[]>([]);
 
+  // obliger d'utiliser le useEffect si on veut détecter chaque changement dans le dom
   useEffect(() => {
    let filter = booksTemp.filter(value => {
      // si toutes les checkbox sont vide mais qu'on fait une recherche que avec input
