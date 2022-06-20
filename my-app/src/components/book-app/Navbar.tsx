@@ -5,20 +5,12 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    
-      
-    <div >
+    <div className="mb-5 d-flex justify-content-center">
         <Link to="/" >
-            Home
+            Book app
         </Link>
-        <Link to="/login" >
-            Login
-        </Link>
-        <Link to="/register">
-            Register
-        </Link>
-        <Link to="/contact">
-            Contact
+        <Link className="ml-4" to="/neflixapp">
+            Netflix app
         </Link>
     </div>
       
