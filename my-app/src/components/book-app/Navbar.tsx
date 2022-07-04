@@ -12,8 +12,10 @@ function Navbar() {
         <Link className="ml-4" to="/neflixapp">
             Netflix app
         </Link>
+        <Link className="ml-4" to="/tinderApp">
+            Tinder App
+        </Link>
     </div>
-      
   );
 }
 

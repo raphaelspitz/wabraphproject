@@ -6,6 +6,9 @@ import Navbar from './components/book-app/Navbar';
 import BookApp from './components/book-app/BookApp';
 import NetflixApp from './components/netflix-app/app/NetflixApp';
 import NetflixShow from './components/pages/netflix/netflix-show/NetflixShow';
+import TinderApp from './components/tinder-app/App/TinderApp';
+import TinderDashboard from './components/tinder-app/App/TinderDashboard';
+import TinderOnboarding from './components/tinder-app/App/TinderOnboarding';
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
           <Route path="/" element={<BookApp  />} />
           <Route path="/neflixapp" element={<NetflixApp  />} />
           <Route path="/netflix-show" element={<NetflixShow  />} />
+          <Route path="/tinderApp" element={<TinderApp  />} />
+          <Route path="/tinderDashboard" element={<TinderDashboard  />} />
+          <Route path="/tinderOnboarding" element={<TinderOnboarding  />} />
         </Routes>
       </Router>
       </div>
