@@ -7,9 +7,14 @@
   flex-wrap: nowrap;
   overflow-x: auto;
   width: 100%;
-  scroll-behavior: smooth;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  touch-action: none;
 }
 
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
 .img-scroll-Nav {
   width: 200px;
 }
@@ -18,9 +23,9 @@
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
-#slider {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-  touch-action: none;
+.active {
+  background: rgba(255,255,255,0.3);
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  transform: scale(1);
 }

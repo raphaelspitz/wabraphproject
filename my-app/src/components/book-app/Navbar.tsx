@@ -1,21 +1,40 @@
-import React from 'react';
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from "react-router-dom";
-// import "./Navbar.css";
+import "./Navbar.css";
 
 function Navbar() {
+  const [toggle, setToggle] = useState(false);
+  const sideNavRef = useRef<HTMLHeadingElement>(null);
+  const openNavbar = () => {
+    sideNavRef.current?.focus();
+    setToggle(!toggle);
+  }
+  const closeNavbar = () => {
+    setToggle(false);
+  }
+
   return (
-    <div className="mb-5 d-flex justify-content-center">
+    <>
+    <span className="hamburger-btn" 
+      onClick={openNavbar}>&#9776; open
+    </span>
+    <div 
+      tabIndex={0} onBlur={closeNavbar}
+      ref={sideNavRef}
+      className={`sidenav ${toggle ? "open" : "close"}`}
+      >
+    <span className="closebtn" onClick={closeNavbar}>&times;</span>
         <Link to="/" >
             Book app
         </Link>
-        <Link className="ml-4" to="/neflixapp">
+        <Link to="/neflixapp">
             Netflix app
         </Link>
-        <Link className="ml-4" to="/tinderApp">
+        <Link to="/tinderApp">
             Tinder App
         </Link>
-    </div>
+      </div>
+    </>
   );
 }
 

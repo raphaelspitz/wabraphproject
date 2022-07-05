@@ -8,18 +8,20 @@ type ChildProps  = {
    Books?: any,
 };
 const Filter: React.FC<ChildProps> = (props) => {
-  const classNameDropDown = 'dropdown-menu border mt-0 position-relative top-0';
+  const classNameDropDown = 'dropdown-menu border mt-0 position-relative p-0 top-40-px';
   const [isFilterBtnToggled, setIsFilterBtnToggled] = useState(false);
   const [inputText, setInputText] = useState<string>('');
   const [checkboxes, setCheckboxes] = useState<string[]>([]);
   const [books, setJSONArray] = useState<Book[]>(props.Books);
   const [filterTempArray] = useState<Book[]>(props.Books);
   const toggleFilter = () => setIsFilterBtnToggled(value => !value);
-  
+  const [loadMoreTupplesToshow, setLoadMoreTupplesToshow] = useState(10);
+
   // obliger d'utiliser le useEffect si on veut détecter chaque changement dans le dom
   useEffect(() => {
-    let filter = getFilterJSONArray();
-    setJSONArray(filter);
+   // let filter = getFilterJSONArray();
+    //setJSONArray(filter);
+    loadMore();
   }, [checkboxes, inputText]);
 
   const setInputValue = (event:any) => {
@@ -62,8 +64,14 @@ const Filter: React.FC<ChildProps> = (props) => {
             return searchWithcheckboxesAndInput(value);
         }    
     });
-    
+  
   return filter = filter ? filter : filterTempArray;
+  }
+
+  const loadMore = () => {
+    setLoadMoreTupplesToshow(loadMoreTupplesToshow+10)
+    let sliceFiler = getFilterJSONArray().slice(0,loadMoreTupplesToshow);
+    setJSONArray(sliceFiler);
   }
 
   const searchOnlyFromInput = (value:any) => {
@@ -102,13 +110,13 @@ const Filter: React.FC<ChildProps> = (props) => {
               onChange={setInputValue} />
         </div>
         <div className="col-4 d-flex flex-column">
-          <div className={isFilterBtnToggled ? 'dropup' : ''}>
-          <button onClick={toggleFilter} className="btn btn-secondary dropdown-toggle w-100" type="button">
+          <div className={isFilterBtnToggled ? 'position-relative dropup z-index-1 top-0' : 'position-relative'}>
+          <button onClick={toggleFilter} className="btn btn-secondary dropdown-toggle w-100 position-absolute top-0" type="button">
             Filter
           </button>
           </div>
           <div className={isFilterBtnToggled ? classNameDropDown + ' show' : classNameDropDown}>
-            <div className="form-check form-check-inline d-flex justify-content-between p-2">
+            <div className="form-check form-check-inline d-flex justify-content-between p-2 postion-absolute">
               <div>
                 <input name="France" onClick={setCheckboxValue}
                    className="form-check-input" type="checkbox" />
@@ -127,6 +135,7 @@ const Filter: React.FC<ChildProps> = (props) => {
         </div>
       </div>
       <Table Books={books} />
+      <button onClick={loadMore} >Load More</button>
     </div>
   );
 }
