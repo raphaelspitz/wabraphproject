@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 type ChildProps  = {
   Books?: any,
+  sorting: (field:string) => void
 };
 const Table: React.FC<ChildProps> = (props) => {
+
 
   return (
     <div>
       <table className="table table-striped">
         <thead>
           <tr>
-            <th scope="col">Author</th>
+            <th scope="col" onClick={() => props.sorting('author')}>Author</th>
             <th scope="col">Country</th>
             <th scope="col">Year</th>
           </tr>

@@ -9,7 +9,9 @@
   width: 100%;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-  touch-action: none;
+}
+#slider:hover {
+  overflow-x: clip;
 }
 
 .scroll-smooth {
@@ -18,6 +20,11 @@
 .img-scroll-Nav {
   width: 200px;
 }
+
+/* .img-scroll-Nav:hover {
+  transform: scale(1.6);
+  transition: transform 500ms ease-out,
+} */
 
 #slider::-webkit-scrollbar {
   display: none;
@@ -28,4 +35,13 @@
   cursor: grabbing;
   cursor: -webkit-grabbing;
   transform: scale(1);
+}
+
+.mt-6-rem {
+  margin-top: 6rem;
+}
+
+.modal-overflow {
+  max-height: 500px;
+  overflow-y: auto;
 }

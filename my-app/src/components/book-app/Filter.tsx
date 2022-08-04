@@ -11,18 +11,25 @@ const Filter: React.FC<ChildProps> = (props) => {
   const classNameDropDown = 'dropdown-menu border mt-0 position-relative p-0 top-40-px';
   const [isFilterBtnToggled, setIsFilterBtnToggled] = useState(false);
   const [inputText, setInputText] = useState<string>('');
+  const [inputTextTemp, setInputTextTemp] = useState<string>('');
   const [checkboxes, setCheckboxes] = useState<string[]>([]);
   const [books, setJSONArray] = useState<Book[]>(props.Books);
   const [filterTempArray] = useState<Book[]>(props.Books);
   const toggleFilter = () => setIsFilterBtnToggled(value => !value);
-  const [loadMoreTupplesToshow, setLoadMoreTupplesToshow] = useState(10);
+  const [loadMoreTupplesToshow, setLoadMoreTupplesToshow] = useState(3);
+  const [order, setorder] = useState("ASC");
 
   // obliger d'utiliser le useEffect si on veut détecter chaque changement dans le dom
   useEffect(() => {
-   // let filter = getFilterJSONArray();
-    //setJSONArray(filter);
-    loadMore();
-  }, [checkboxes, inputText]);
+  // let filter = getFilterJSONArray();
+  if(inputTextTemp.length > inputText.length) {
+    setLoadMoreTupplesToshow(3);
+  }
+  let sliceFiler = getFilterJSONArray().slice(0,loadMoreTupplesToshow);
+  
+  setJSONArray(sliceFiler);
+  setInputTextTemp(inputText);
+  }, [checkboxes, inputText, loadMoreTupplesToshow]);
 
   const setInputValue = (event:any) => {
     handleFilterChange("input", event.target.value);
@@ -48,7 +55,7 @@ const Filter: React.FC<ChildProps> = (props) => {
         }
     }
   }
- 
+
   const getFilterJSONArray = () => {
     let filter = filterTempArray.filter(value => {
       // si toutes les checkbox sont vide mais qu'on fait une recherche que avec input
@@ -69,20 +76,18 @@ const Filter: React.FC<ChildProps> = (props) => {
   }
 
   const loadMore = () => {
-    setLoadMoreTupplesToshow(loadMoreTupplesToshow+10)
-    let sliceFiler = getFilterJSONArray().slice(0,loadMoreTupplesToshow);
-    setJSONArray(sliceFiler);
+    setLoadMoreTupplesToshow(loadMoreTupplesToshow+3)
   }
 
   const searchOnlyFromInput = (value:any) => {
     let keys = ["author", "country"];
   // exemple pour filter uniquement sur 2 propriété du tableau    
-  //  return keys.some((k) => 
-  //   value[k].toString().toLowerCase().includes(inputText.toLowerCase()));
+    return keys.some((k) => 
+     value[k].toString().toLowerCase().includes(inputText.toLowerCase()));
   
   // pour filter sur toute les valeur du tableau de manière générique    
-    return Object.keys(value).some((k) => 
-    value[k].toString().toLowerCase().includes(inputText.toLowerCase()));
+    // return Object.keys(value).some((k) => 
+    // value[k].toString().toLowerCase().includes(inputText.toLowerCase()));
   }
 
   const searchOnlyWithcheckboxes = (value:any) => {
@@ -102,12 +107,24 @@ const Filter: React.FC<ChildProps> = (props) => {
     }
   }
 
+  const sorting = (data:string) => {
+    let sorted:Book[] = [];
+    if(order === 'ASC') {
+      sorted = [...books].sort((a:any, b:any) => (a[data].toLowerCase() > b[data].toLowerCase() ? 1 : -1));
+      setorder('DESC')
+    }
+    if(order === 'DESC') {
+      sorted = [...books].sort((a:any, b:any) => (a[data].toLowerCase() < b[data].toLowerCase() ? 1 : -1));
+      setorder('ASC')
+    }
+    setJSONArray(sorted);
+}
   return (
     <div className="d-flex flex-column">
       <div className="d-flex mb-5">
         <div className="form-group col-8 p-0">
-            <input type="Search" className="form-control" placeholder="Searcg" 
-              onChange={setInputValue} />
+            <input data-testid="search" type="Search" name="Search" className="form-control" placeholder="Search" 
+             value="" aria-label="search" onChange={setInputValue} />
         </div>
         <div className="col-4 d-flex flex-column">
           <div className={isFilterBtnToggled ? 'position-relative dropup z-index-1 top-0' : 'position-relative'}>
@@ -134,8 +151,8 @@ const Filter: React.FC<ChildProps> = (props) => {
           </div>
         </div>
       </div>
-      <Table Books={books} />
-      <button onClick={loadMore} >Load More</button>
+      <Table Books={books} sorting={sorting} />
+        { loadMoreTupplesToshow < getFilterJSONArray().length ? <button onClick={loadMore}>Load More</button> : '' }
     </div>
   );
 }

@@ -14,9 +14,9 @@ function Navbar() {
   }
 
   return (
-    <>
+    <div>
     <span className="hamburger-btn" 
-      onClick={openNavbar}>&#9776; open
+      onClick={openNavbar}>&#9776;
     </span>
     <div 
       tabIndex={0} onBlur={closeNavbar}
@@ -27,14 +27,14 @@ function Navbar() {
         <Link to="/" >
             Book app
         </Link>
-        <Link to="/neflixapp">
+        <Link to="/netflix-show">
             Netflix app
         </Link>
-        <Link to="/tinderApp">
-            Tinder App
+        <Link to="/Chart">
+          Chart app
         </Link>
       </div>
-    </>
+    </div>
   );
 }
 
